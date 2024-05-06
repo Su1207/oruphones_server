@@ -15,10 +15,15 @@ const app = express();
 
 const server = http.createServer(app);
 
+const allowedOrigin = [
+  "https://oruphones-frontend-eight.vercel.app",
+  "http://localhost:3000",
+];
+
 // Initialize Socket.IO server
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: allowedOrigin,
     methods: ["GET", "POST"],
     credentials: true,
   },
