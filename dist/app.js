@@ -25,7 +25,10 @@ const io = new Server(server, {
 });
 connectDB();
 app.use(useragent.express());
-app.use(cors());
+app.use(cors({
+    origin: allowedOrigin,
+    credentials: true,
+}));
 app.use(express.json());
 app.use("/user", userRoutes);
 io.on("connection", (socket) => {
