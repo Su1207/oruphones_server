@@ -22,14 +22,14 @@ router.post("/register", newUserValidator, register);
 router.post(
   "/sigin",
   newUserValidator,
-  checkBlockedIP,
+  // checkBlockedIP,
   removeExpiredBlockedIPs,
   requestQRCode
 );
 router.post(
   "/otp-verification",
   deviceInfo,
-  checkBlockedIP,
+  // checkBlockedIP,
   removeExpiredBlockedIPs,
   otpVerification
 );
@@ -38,7 +38,7 @@ router.post("/logout", deviceInfo, logoutActivity);
 router.post(
   "/emailVerify",
   newUserValidator,
-  checkBlockedIP,
+  // checkBlockedIP,
   removeExpiredBlockedIPs,
   passwordChangeEmailVerify
 );
