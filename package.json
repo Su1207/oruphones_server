@@ -2,7 +2,7 @@
   "name": "oruphones_backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/app.js",
   "type": "module",
   "scripts": {
     "start": "node dist/app.js",
