@@ -76,29 +76,19 @@ export const handleFailedLogin = async (ip) => {
         const BLOCK_DURATION_MS = 10 * 60 * 1000; // Block duration in milliseconds (e.g., 10 minutes)
         if (attempt.attempts >= MAX_ATTEMPTS) {
             // Block the IP
-            await blockIP(ip, BLOCK_DURATION_MS);
+            const existingBlock = await BlockedIP.findOne({ ip });
+            if (!existingBlock) {
+                // If IP is not already blocked, create a new block record
+                const block = new BlockedIP({
+                    ip,
+                    expiresAt: Date.now() + BLOCK_DURATION_MS,
+                });
+                await block.save();
+            }
         }
     }
     catch (error) {
         console.error("Error handling failed login:", error);
-    }
-};
-// Function to block an IP address
-const blockIP = async (ip, durationMs) => {
-    try {
-        // Check if the IP is already blocked
-        const existingBlock = await BlockedIP.findOne({ ip });
-        if (!existingBlock) {
-            // If IP is not already blocked, create a new block record
-            const block = new BlockedIP({
-                ip,
-                expiresAt: Date.now() + durationMs,
-            });
-            await block.save();
-        }
-    }
-    catch (error) {
-        console.error("Error blocking IP:", error);
     }
 };
 // Middleware to check if IP is blocked
