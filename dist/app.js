@@ -12,44 +12,39 @@ const PORT = 4000;
 const app = express();
 const server = http.createServer(app);
 const allowedOrigin = [
-  "https://oruphones-frontend-eight.vercel.app",
-  "http://localhost:3000",
+    "https://oruphones-frontend-eight.vercel.app",
+    "http://localhost:3000",
 ];
 // Initialize Socket.IO server
 const io = new Server(server, {
-  cors: {
-    origin: allowedOrigin,
-    methods: ["GET", "POST"],
-    credentials: true,
-  },
+    cors: {
+        origin: allowedOrigin,
+        methods: ["GET", "POST"],
+        credentials: true,
+    },
 });
 connectDB();
 app.use(useragent.express());
-app.use(
-  cors({
-    origin: allowedOrigin,
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use("/user", userRoutes);
 io.on("connection", (socket) => {
-  console.log("A user connected", socket.id);
-  socket.on("login", (s) => {
-    console.log(s);
-    io.emit("message", s);
-  });
-  socket.on("logout", (s) => {
-    console.log(s);
-    io.emit("message", s);
-  });
-  socket.on("signout", (token) => {
-    console.log(token);
-    io.emit("signout user", token);
-  });
-  // Event listener for user disconnection
-  socket.on("disconnect", () => {
-    console.log("User disconnected");
-  });
+    console.log("A user connected", socket.id);
+    socket.on("login", (s) => {
+        console.log(s);
+        io.emit("message", s);
+    });
+    socket.on("logout", (s) => {
+        console.log(s);
+        io.emit("message", s);
+    });
+    socket.on("signout", (token) => {
+        console.log(token);
+        io.emit("signout user", token);
+    });
+    // Event listener for user disconnection
+    socket.on("disconnect", () => {
+        console.log("User disconnected");
+    });
 });
 server.listen(PORT, () => console.log(`Express is running on ${PORT}`));
