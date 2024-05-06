@@ -23,14 +23,14 @@ router.post(
   "/sigin",
   newUserValidator,
   // checkBlockedIP,
-  removeExpiredBlockedIPs,
+  // removeExpiredBlockedIPs,
   requestQRCode
 );
 router.post(
   "/otp-verification",
   deviceInfo,
   // checkBlockedIP,
-  removeExpiredBlockedIPs,
+  // removeExpiredBlockedIPs,
   otpVerification
 );
 router.get("/activities/:id", fetchActivities);
@@ -39,13 +39,13 @@ router.post(
   "/emailVerify",
   newUserValidator,
   // checkBlockedIP,
-  removeExpiredBlockedIPs,
+  // removeExpiredBlockedIPs,
   passwordChangeEmailVerify
 );
 router.post(
   "/otpVerify",
-  checkBlockedIP,
-  removeExpiredBlockedIPs,
+  // checkBlockedIP,
+  // removeExpiredBlockedIPs,
   passwordChangeOtpVerify
 );
 
