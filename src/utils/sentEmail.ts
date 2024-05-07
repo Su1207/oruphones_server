@@ -1,4 +1,6 @@
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config();
 
 // Function to send email
 export const sendEmail = async (recipientEmail: string) => {
@@ -6,14 +8,14 @@ export const sendEmail = async (recipientEmail: string) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "your_email@gmail.com",
-      pass: "your_password",
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
 
   // Construct the email message
   const mailOptions = {
-    from: "your_email@gmail.com",
+    from: process.env.EMAIL_USER,
     to: recipientEmail,
     subject: "Successful Login",
     text: "You have successfully logged in to our application.",
